@@ -2,18 +2,21 @@ import { FaShoppingCart } from "react-icons/fa";
 import { Button } from "../ui/button";
 import { twMerge } from "tailwind-merge";
 import { HTMLProps } from "react";
+import ToggleProduct from "../ToggleProduct";
 
 interface IProductParams extends HTMLProps<HTMLDivElement> {
+  id: string;
   tags: Array<string>;
   title: string;
   summary: string;
-  price: string;
+  price: number;
   imgURL: string;
   imgAlt: string;
 }
 
 export default function Product({
   className,
+  id,
   tags,
   title,
   summary,
@@ -53,23 +56,15 @@ export default function Product({
       <div className="flex flex-wrap gap-1 mt-6">
         <p className="flex-1 font-maven text-slate-700 text-center whitespace-nowrap">
           <span className="font-medium text-sm">R$</span>{" "}
-          <span className="font-extrabold text-2xl">{price}</span>
+          <span className="font-extrabold text-2xl">
+            {new Intl.NumberFormat("pt-BR", {
+              minimumFractionDigits: 2,
+            }).format(price)}
+          </span>
         </p>
 
-        <div className="flex-1 flex">
-          <div className="flex flex-1 items-center justify-center ml-auto mr-1 h-9 rounded-s-md rounded-e-md overflow-hidden">
-            <button className=" bg-zinc-200 text-purple-700 hover:opacity-50 rounded-s-md flex-1 h-full px-3">
-              -
-            </button>
-
-            <div className=" bg-zinc-200 flex-1 h-full flex items-center justify-center px-0.5">
-              <span className="font-maven text-sm">1</span>
-            </div>
-
-            <button className=" bg-zinc-200 text-purple-700 hover:opacity-60 rounded-e-md flex-1 h-full px-3">
-              +
-            </button>
-          </div>
+        <div className="flex-1 flex gap-2">
+          <ToggleProduct id={id} price={price} className="max-w-[6em]" />
 
           <Button className="bg-purple-900 hover:bg-purple-900 hover:opacity-90 shadow-none text-white text-base">
             <FaShoppingCart />

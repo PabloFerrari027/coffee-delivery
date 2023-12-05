@@ -18,10 +18,11 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ToggleProduct from "@/components/ToggleProduct";
 import { Separator } from "@/components/ui/separator";
 import RemoveProduct from "@/components/RemoveProduct";
+import useProducts from "@/hooks/useProducts";
 
 const formSchema = z.object({
   CEP: z.string(),
@@ -54,6 +55,20 @@ export default function Checkout() {
   }
 
   const [payment, setPayment] = useState<"pix" | "card" | "money" | null>(null);
+
+  const { products } = useProducts();
+
+  const [total, setTotal] = useState(0);
+  const [totalItems, setTotalItems] = useState(0);
+  const [deliveryValue, setDeliveryValue] = useState(3.5);
+
+  useEffect(() => {
+    products.forEach((p) => setTotalItems((t) => t + p.total));
+  }, [products]);
+
+  useEffect(() => {
+    setTotal(totalItems + deliveryValue);
+  }, [products, deliveryValue, totalItems]);
 
   return (
     <main className="flex-1 max-lg:grid flex gap-5 max-sm:px-0 max-md:px-10 px-20 mb-10">
@@ -283,94 +298,88 @@ export default function Checkout() {
 
         <div className="mt-5 px-10 py-10 bg-zinc-50 max-lg:rounded-lg rounded-tr-3xl rounded-bl-3xl">
           <div className="flex-1 grid gap-5">
-            <div className="flex-1 max-sm:grid flex max-sm:justify-center justify-between max-sm:gap-2 gap-5">
-              <div className="flex justify-center max-sm:mx-auto min-w-[4em] max-w-[5em]">
-                <img
-                  className="w-full max-w-[8em] "
-                  src="../../../public/coffee-1.svg"
-                  alt=""
-                />
-              </div>
-
-              <div className="max-sm:grid flex flex-col justify-center max-sm:gap-0 gap-2">
-                <span className="text-slate-600 text-base max-sm:text-center">
-                  Expresso Tradicional
-                </span>
-
-                <div className="flex flex-col-reverse gap-2 h-min">
-                  <div className="flex-1 flex max-sm:justify-center gap-1">
-                    <ToggleProduct className="max-w-[6em]" />
-
-                    <RemoveProduct />
+            {products.map((product) => (
+              <div className="flex-1" key={product.id}>
+                <div className="flex-1 max-sm:grid flex max-sm:justify-center justify-between max-sm:gap-2 gap-5">
+                  <div className="flex justify-center max-sm:mx-auto min-w-[4em] max-w-[5em]">
+                    <img
+                      className="w-full max-w-[8em] "
+                      src="../../../public/coffee-1.svg"
+                      alt=""
+                    />
                   </div>
 
-                  <span className="text-slate-900 font-bold text-xs whitespace-nowrap mt-2 text-center max-sm:block hidden">
-                    R$ 9,90
-                  </span>
-                </div>
-              </div>
+                  <div className="max-sm:grid flex flex-col justify-center max-sm:gap-0 gap-2">
+                    <span className="text-slate-600 text-base max-sm:text-center">
+                      Expresso Tradicional
+                    </span>
 
-              <div className="max-sm:hidden flex items-center">
-                <span className="text-slate-900 font-bold text-base whitespace-nowrap mt-2 text-center">
-                  R$ 9,90
-                </span>
-              </div>
-            </div>
+                    <div className="flex flex-col-reverse gap-2 h-min">
+                      <div className="flex-1 flex max-sm:justify-center gap-1">
+                        <ToggleProduct
+                          id={product.id}
+                          price={product.price}
+                          className="max-w-[6em]"
+                        />
 
-            <Separator />
+                        <RemoveProduct />
+                      </div>
 
-            <div className="flex-1 max-sm:grid flex max-sm:justify-center justify-between max-sm:gap-2 gap-5">
-              <div className="flex justify-center max-sm:mx-auto min-w-[4em] max-w-[5em]">
-                <img
-                  className="w-full max-w-[8em] "
-                  src="../../../public/coffee-1.svg"
-                  alt=""
-                />
-              </div>
-
-              <div className="max-sm:grid flex flex-col justify-center max-sm:gap-0 gap-2">
-                <span className="text-slate-600 text-base max-sm:text-center">
-                  Expresso Tradicional
-                </span>
-
-                <div className="flex flex-col-reverse gap-2 h-min">
-                  <div className="flex-1 flex max-sm:justify-center gap-1">
-                    <ToggleProduct className="max-w-[6em]" />
-
-                    <RemoveProduct />
+                      <span className="text-slate-900 font-bold text-xs whitespace-nowrap mt-2 text-center max-sm:block hidden">
+                        {new Intl.NumberFormat("pt-BR", {
+                          style: "currency",
+                          currency: "BRL",
+                        }).format(product.price)}
+                      </span>
+                    </div>
                   </div>
 
-                  <span className="text-slate-900 font-bold text-xs whitespace-nowrap mt-2 text-center max-sm:block hidden">
-                    R$ 9,90
-                  </span>
+                  <div className="max-sm:hidden flex items-center">
+                    <span className="text-slate-900 font-bold text-base whitespace-nowrap mt-2 text-center">
+                      {new Intl.NumberFormat("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
+                      }).format(product.price)}
+                    </span>
+                  </div>
                 </div>
-              </div>
 
-              <div className="max-sm:hidden flex items-center">
-                <span className="text-slate-900 font-bold text-base whitespace-nowrap mt-2 text-center">
-                  R$ 9,90
-                </span>
+                <Separator />
               </div>
-            </div>
-
-            <Separator />
+            ))}
           </div>
 
           <table className="table-auto mt-10 w-full">
             <tbody className="flex-1 grid gap-1">
               <tr className="flex-1 flex justify-between">
                 <td className="text-zinc-500 text-sm">Total itens</td>
-                <td className="text-zinc-500 text-sm">R$ 29,70</td>
+                <td className="text-zinc-500 text-sm">
+                  {" "}
+                  {new Intl.NumberFormat("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  }).format(totalItems)}
+                </td>
               </tr>
 
               <tr className="flex-1 flex justify-between">
                 <td className="text-zinc-500 text-sm">Entrega</td>
-                <td className="text-zinc-500 text-sm">R$ 3,50</td>
+                <td className="text-zinc-500 text-sm">
+                  {new Intl.NumberFormat("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  }).format(deliveryValue)}
+                </td>
               </tr>
 
               <tr className="flex-1 flex justify-between">
                 <td className="text-zinc-800 font-bold text-base">Total</td>
-                <td className="text-zinc-800 font-bold text-base">R$ 33,20</td>
+                <td className="text-zinc-800 font-bold text-base">
+                  {new Intl.NumberFormat("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  }).format(total)}
+                </td>
               </tr>
             </tbody>
           </table>

@@ -7,6 +7,8 @@ function App() {
     <>
       <Header />
 
+      <Home />
+
       <Checkout />
     </>
   );
