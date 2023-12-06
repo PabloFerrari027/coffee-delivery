@@ -12,4 +12,7 @@ interface IContext {
   setProducts(products: IProduct[]): void;
 }
 
-export const ProductsContext = createContext<IContext | null>(null);
+export const ProductsContext = createContext<IContext>({
+  products: [],
+  setProducts: () => {},
+});

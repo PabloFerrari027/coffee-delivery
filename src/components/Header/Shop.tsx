@@ -21,9 +21,11 @@ export default function Shop() {
         <Button className="bg-brown-200 hover:bg-brown-200 hover:opacity-90 shadow-none text-brown-500 text-base relative">
           <FaShoppingCart />
 
-          <span className="absolute top-0 right-0 translate-x-[25%] translate-y-[-25%] w-[1.5em] h-[1.5em] flex justify-center items-center rounded-full bg-brown-500 text-white text-xs font-bold">
-            {count}
-          </span>
+          {products.length > 0 && (
+            <span className="absolute top-0 right-0 translate-x-[25%] translate-y-[-25%] w-[1.5em] h-[1.5em] flex justify-center items-center rounded-full bg-brown-500 text-white text-xs font-bold">
+              {count}
+            </span>
+          )}
         </Button>
       </a>
     </div>
