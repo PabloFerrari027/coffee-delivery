@@ -86,7 +86,7 @@ export default function Home() {
           Nossos cafés
         </h2>
 
-        <div className="flex-1 grid max-sm:grid-cols-1 max-md:grid-cols-2 max-lg:grid-cols-3 max-xl:grid-cols-4 grid-cols-5 gap-10 mt-10 ">
+        <div className="flex-1 grid max-sm:grid-cols-1 max-lg:grid-cols-2 max-xl:grid-cols-3 grid-cols-4 gap-10 mt-10 ">
           <Product
             className="mx-auto"
             id={"1"}
