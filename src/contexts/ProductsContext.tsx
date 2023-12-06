@@ -7,4 +7,9 @@ interface IProduct {
   total: number;
 }
 
-export const ProductsContext = createContext<IProduct[]>([]);
+interface IContext {
+  products: IProduct[];
+  setProducts(products: IProduct[]): void;
+}
+
+export const ProductsContext = createContext<IContext | null>(null);

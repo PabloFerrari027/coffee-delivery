@@ -304,7 +304,7 @@ export default function Checkout() {
                   <div className="flex justify-center max-sm:mx-auto min-w-[4em] max-w-[5em]">
                     <img
                       className="w-full max-w-[8em] "
-                      src="../../../public/coffee-1.svg"
+                      src="/coffee-1.svg"
                       alt=""
                     />
                   </div>

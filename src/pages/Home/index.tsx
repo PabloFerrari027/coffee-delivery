@@ -13,7 +13,7 @@ export default function Home() {
             bg-clip-border bg-origin-border bg-center bg-no-repeat bg-cover 
             max-md:px-10 px-20 py-14
             "
-        style={{ backgroundImage: "url(../public/Background.svg)" }}
+        style={{ backgroundImage: "url(/Background.svg)" }}
       >
         <div className="flex-1 h-min flex flex-col items-center max-lg:max-w-lg max-w-2xl mx-auto">
           <div className="flex-1 max-lg:text-center">
@@ -75,7 +75,7 @@ export default function Home() {
         <div className="flex-1 flex max-lg:justify-center justify-end items-center">
           <img
             className="w-full max-w-xl"
-            src="../public/ilustration-1.svg"
+            src="/ilustration-1.svg"
             alt="Ilustração"
           />
         </div>
@@ -94,7 +94,7 @@ export default function Home() {
             title="Expresso Tradicional"
             summary="O tradicional café feito com água quente e grãos moídos"
             price={9.9}
-            imgURL="../public/coffee-1.svg"
+            imgURL="/coffee-1.svg"
             imgAlt="Expresso Tradicional"
           />
 
@@ -105,7 +105,7 @@ export default function Home() {
             title="Expresso Americano"
             summary="Expresso diluído, menos intenso que o tradicional"
             price={9.9}
-            imgURL="../public/coffee-2.svg"
+            imgURL="/coffee-2.svg"
             imgAlt="Expresso Americano"
           />
 
@@ -116,7 +116,7 @@ export default function Home() {
             title="Expresso Cremoso"
             summary="Café expresso tradicional com espuma cremosa"
             price={9.9}
-            imgURL="../public/coffee-3.svg"
+            imgURL="/coffee-3.svg"
             imgAlt="Expresso Cremoso"
           />
 
@@ -127,7 +127,7 @@ export default function Home() {
             title="Expresso Gelado"
             summary="Bebida preparada com café expresso e cubos de gelo"
             price={9.9}
-            imgURL="../public/coffee-4.svg"
+            imgURL="/coffee-4.svg"
             imgAlt="Expresso Gelado"
           />
 
@@ -138,7 +138,7 @@ export default function Home() {
             title="Café com Leite"
             summary="Meio a meio de expresso tradicional com leite vaporizado"
             price={9.9}
-            imgURL="../public/coffee-5.svg"
+            imgURL="/coffee-5.svg"
             imgAlt="Café com Leite"
           />
 
@@ -149,7 +149,7 @@ export default function Home() {
             title="Latte"
             summary="Uma dose de café expresso com o dobro de leite e espuma cremosa"
             price={9.9}
-            imgURL="../public/coffee-6.svg"
+            imgURL="/coffee-6.svg"
             imgAlt="Latte"
           />
 
@@ -160,7 +160,7 @@ export default function Home() {
             title="Capuccino"
             summary="Bebida com canela feita de doses iguais de café, leite e espuma"
             price={9.9}
-            imgURL="../public/coffee-7.svg"
+            imgURL="/coffee-7.svg"
             imgAlt="Capuccino"
           />
 
@@ -171,7 +171,7 @@ export default function Home() {
             title="Macchiato"
             summary="Café expresso misturado com um pouco de leite quente e espuma"
             price={9.9}
-            imgURL="../public/coffee-8.svg"
+            imgURL="/coffee-8.svg"
             imgAlt="Macchiato"
           />
 
@@ -182,7 +182,7 @@ export default function Home() {
             title="Mocaccino"
             summary="Café expresso com calda de chocolate, pouco leite e espuma"
             price={9.9}
-            imgURL="../public/coffee-9.svg"
+            imgURL="/coffee-9.svg"
             imgAlt="Mocaccino"
           />
 
@@ -193,7 +193,7 @@ export default function Home() {
             title="Chocolate Quente"
             summary="Bebida feita com chocolate dissolvido no leite quente e café"
             price={9.9}
-            imgURL="../public/coffee-10.svg"
+            imgURL="/coffee-10.svg"
             imgAlt="Chocolate Quente"
           />
 
@@ -204,7 +204,7 @@ export default function Home() {
             title="Cubano"
             summary="Drink gelado de café expresso com rum, creme de leite e hortelã"
             price={9.9}
-            imgURL="../public/coffee-11.svg"
+            imgURL="/coffee-11.svg"
             imgAlt="Cubano"
           />
 
@@ -215,7 +215,7 @@ export default function Home() {
             title="Havaiano"
             summary="Bebida adocicada preparada com café e leite de coco"
             price={9.9}
-            imgURL="../public/coffee-12.svg"
+            imgURL="/coffee-12.svg"
             imgAlt="Havaiano"
           />
 
@@ -226,7 +226,7 @@ export default function Home() {
             title="Árabe"
             summary="Bebida preparada com grãos de café árabe e especiarias"
             price={9.9}
-            imgURL="../public/coffee-13.svg"
+            imgURL="/coffee-13.svg"
             imgAlt="Expresso Tradicional"
           />
 
@@ -237,7 +237,7 @@ export default function Home() {
             title="Irlandês"
             summary="Bebida a base de café, uísque irlandês, açúcar e chantilly"
             price={9.9}
-            imgURL="../public/coffee-14.svg"
+            imgURL="/coffee-14.svg"
             imgAlt="Irlandês"
           />
         </div>
