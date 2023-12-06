@@ -66,9 +66,11 @@ export default function Product({
         <div className="flex-1 flex gap-2">
           <ToggleProduct id={id} price={price} className="max-w-[6em]" />
 
-          <Button className="bg-purple-900 hover:bg-purple-900 hover:opacity-90 shadow-none text-white text-base">
-            <FaShoppingCart />
-          </Button>
+          <a href="/checkout">
+            <Button className="bg-purple-900 hover:bg-purple-900 hover:opacity-90 shadow-none text-white text-base">
+              <FaShoppingCart />
+            </Button>
+          </a>
         </div>
       </div>
     </div>
