@@ -2,8 +2,12 @@ import { createContext } from "react";
 
 interface IProduct {
   id: string;
-  amount: number;
+  title: string;
+  summary: string;
+  tags: string[];
+  imgURL: string;
   price: number;
+  amount: number;
   total: number;
 }
 
