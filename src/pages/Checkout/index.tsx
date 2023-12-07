@@ -18,11 +18,12 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useEffect, useRef, useState } from "react";
 import ToggleProduct from "@/components/ToggleProduct";
 import { Separator } from "@/components/ui/separator";
 import RemoveProduct from "@/components/RemoveProduct";
 import useProducts from "@/hooks/useProducts";
+
+import { useEffect, useRef, useState } from "react";
 
 const formSchema = z.object({
   CEP: z.string(),
@@ -63,13 +64,20 @@ export default function Checkout() {
   const [deliveryValue, setDeliveryValue] = useState(0);
 
   useEffect(() => {
-    products.forEach((p) => setTotalItems((t) => t + p.total));
-    setDeliveryValue(Math.round(Math.random() * 100));
+    let totalItemns = 0;
+
+    products.forEach((p) => (totalItemns += p.total));
+
+    setTotalItems(totalItemns);
   }, [products]);
 
   useEffect(() => {
     setTotal(totalItems + deliveryValue);
   }, [products, deliveryValue, totalItems]);
+
+  useEffect(() => {
+    setDeliveryValue(Math.round(Math.random() * 100));
+  }, []);
 
   if (products.length > 0)
     return (
@@ -308,25 +316,24 @@ export default function Checkout() {
                     <div className="flex justify-center max-sm:mx-auto min-w-[4em] max-w-[5em]">
                       <img
                         className="w-full max-w-[8em] "
-                        src="/coffee-1.svg"
-                        alt=""
+                        src={product.imgURL}
+                        alt={`Imagem do produto${product.title}`}
                       />
                     </div>
 
                     <div className="max-sm:grid flex flex-col justify-center max-sm:gap-0 gap-2">
                       <span className="text-slate-600 text-base max-sm:text-center">
-                        Expresso Tradicional
+                        {product.title}
                       </span>
 
                       <div className="flex flex-col-reverse gap-2 h-min">
                         <div className="flex-1 flex max-sm:justify-center gap-1">
                           <ToggleProduct
                             id={product.id}
-                            price={product.price}
                             className="max-w-[6em]"
                           />
 
-                          <RemoveProduct />
+                          <RemoveProduct id={product.id} />
                         </div>
 
                         <span className="text-slate-900 font-bold text-xs whitespace-nowrap mt-2 text-center max-sm:block hidden">

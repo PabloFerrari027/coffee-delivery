@@ -1,30 +1,32 @@
 import useProducts from "@/hooks/useProducts";
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
+import DB from "../../../fake-database.json";
 
 interface IToggleProductParams extends HTMLAttributes<HTMLDivElement> {
   id: string;
-  price: number;
 }
 
 export default function ToggleProduct({
   id,
-  price,
   className,
   ...rest
 }: IToggleProductParams) {
   const { products, setProducts } = useProducts();
+  const [amount, setAmount] = useState(1);
 
   const handleAddProduct = () => {
     const productAlreadyExists = products.find((p) => p.id === id) || null;
+    const getProduct = DB.find((p) => p.id === id);
+
+    if (!getProduct) return;
 
     if (!productAlreadyExists) {
       const amount = 1;
-      const total = amount * price;
+      const total = amount * getProduct.price;
 
       const product = {
-        id,
-        price,
+        ...getProduct,
         amount,
         total,
       };
@@ -36,23 +38,28 @@ export default function ToggleProduct({
 
     const index = products.findIndex((p) => p.id === id);
     const amount = products[index].amount + 1;
-    const total = amount * price;
+    const total = amount * getProduct.price;
 
     const product = {
+      ...getProduct,
+      ...products[index],
       id,
-      price,
+      price: getProduct.price,
       amount,
       total,
     };
 
     products[index] = product;
 
-    setProducts(products);
+    setProducts([...products]);
     return product;
   };
 
   const handleRemoveProduct = () => {
     const productAlreadyExists = products.find((p) => p.id === id) || null;
+    const getProduct = DB.find((p) => p.id === id);
+
+    if (!getProduct) return;
 
     if (!productAlreadyExists) return;
 
@@ -62,11 +69,10 @@ export default function ToggleProduct({
 
     if (amount <= 0) products.splice(index, 1);
     else {
-      const total = amount * price;
+      const total = amount * getProduct.price;
 
       const product = {
-        id,
-        price,
+        ...getProduct,
         amount,
         total,
       };
@@ -74,8 +80,14 @@ export default function ToggleProduct({
       products[index] = product;
     }
 
-    setProducts(products);
+    setProducts([...products]);
   };
+
+  useEffect(() => {
+    const getProduct = products.find((product) => product.id === id);
+
+    getProduct && setAmount(getProduct.amount);
+  }, [products, id]);
 
   return (
     <div
@@ -93,7 +105,7 @@ export default function ToggleProduct({
       </button>
 
       <div className=" bg-zinc-200 flex-1 h-full flex items-center justify-center px-0.5">
-        <span className="font-maven text-sm">1</span>
+        <span className="font-maven text-sm">{amount}</span>
       </div>
 
       <button

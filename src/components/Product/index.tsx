@@ -38,8 +38,11 @@ export default function Product({
       </div>
 
       <div className="flex flex-wrap gap-1 justify-center mt-2">
-        {tags.map((tag) => (
-          <span className="text-brown-500 bg-brown-200 rounded-full py-1 px-4 uppercase font-bold text-[0.7em]">
+        {tags.map((tag, index) => (
+          <span
+            key={index}
+            className="text-brown-500 bg-brown-200 rounded-full py-1 px-4 uppercase font-bold text-[0.7em]"
+          >
             {tag}
           </span>
         ))}
@@ -64,7 +67,7 @@ export default function Product({
         </p>
 
         <div className="flex-1 flex gap-2">
-          <ToggleProduct id={id} price={price} className="max-w-[6em]" />
+          <ToggleProduct id={id} className="max-w-[6em]" />
 
           <a href="/checkout">
             <Button className="bg-purple-900 hover:bg-purple-900 hover:opacity-90 shadow-none text-white text-base">
