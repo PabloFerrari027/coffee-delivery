@@ -1,108 +1,12 @@
-import Product from "@/components/Product";
-import { BsFillBoxSeamFill } from "react-icons/bs";
-import { FaShoppingCart } from "react-icons/fa";
-import { MdTimer } from "react-icons/md";
-import { PiCoffeeFill } from "react-icons/pi";
-import products from "../../../fake-database.json";
+import Presentation from "./components/Presentation";
+import Products from "./components/Products";
 
 export default function Home() {
   return (
     <main>
-      <section
-        className="
-            flex-1 flex max-lg:flex-col-reverse flex-row gap-10 justify-between
-            bg-clip-border bg-origin-border bg-center bg-no-repeat bg-cover 
-            max-md:px-10 px-20 py-14
-            "
-        style={{ backgroundImage: "url(/Background.svg)" }}
-      >
-        <div className="flex-1 h-min flex flex-col items-center max-lg:max-w-lg max-w-2xl mx-auto">
-          <div className="flex-1 max-lg:text-center">
-            <h1 className="font-bold max-xl:text-4xl text-5xl text-gray-800 font-maven">
-              Encontre o café perfeito para qualquer hora do dia
-            </h1>
+      <Presentation />
 
-            <p className="max-xl:mt-3 mt-5 text-gray-700 max-xl:text-sm text-lg">
-              Com o Coffee Delivery você recebe seu café onde estiver, a
-              qualquer hora
-            </p>
-          </div>
-
-          <div className="flex-1 w-full h-min mt-10">
-            <ul className="grid max-[350px]:grid-cols-1 grid-cols-2 max-[350px]:grid-rows-1 grid-rows-2 gap-4">
-              <li className="flex gap-3 items-center">
-                <div className="w-7 h-7 rounded-full bg-brown-500 flex items-center justify-center flex-shrink-0 text-sm text-white">
-                  <FaShoppingCart />
-                </div>
-
-                <span className="text-sm text-gray-700 leading-4">
-                  Compra simples e segura
-                </span>
-              </li>
-
-              <li className="flex gap-3 items-center">
-                <div className="w-7 h-7 rounded-full bg-gray-800 flex items-center justify-center flex-shrink-0 text-sm text-white">
-                  <BsFillBoxSeamFill />
-                </div>
-
-                <span className="text-sm text-gray-700 leading-4">
-                  Embalagem mantém o café intacto
-                </span>
-              </li>
-
-              <li className="flex gap-3 items-center">
-                <div className="w-7 h-7 rounded-full bg-brown-300 flex items-center justify-center flex-shrink-0 text-sm text-white">
-                  <MdTimer />
-                </div>
-
-                <span className="text-sm text-gray-700 leading-4">
-                  Entrega rápida e rastreada
-                </span>
-              </li>
-
-              <li className="flex gap-3 items-center">
-                <div className="w-7 h-7 rounded-full bg-purple-700 flex items-center justify-center flex-shrink-0 text-sm text-white">
-                  <PiCoffeeFill />
-                </div>
-
-                <span className="text-sm text-gray-700 leading-4">
-                  O café chega fresquinho até você
-                </span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="flex-1 flex max-lg:justify-center justify-end items-center">
-          <img
-            className="w-full max-w-xl"
-            src="/ilustration-1.svg"
-            alt="Ilustração"
-          />
-        </div>
-      </section>
-
-      <section className="flex-1 max-md:px-10 px-20 mt-20 mb-20">
-        <h2 className="font-maven max-lg:text-center max-lg:text-2xl text-3xl font-bold">
-          Nossos cafés
-        </h2>
-
-        <div className="flex-1 grid max-sm:grid-cols-1 max-lg:grid-cols-2 max-xl:grid-cols-3 grid-cols-4 gap-10 mt-10 ">
-          {products.map((product) => (
-            <Product
-              className="mx-auto"
-              key={product.id}
-              id={product.id}
-              tags={product.tags}
-              title={product.title}
-              summary={product.summary}
-              price={product.price}
-              imgURL={product.imgURL}
-              imgAlt={`Imagem do produto ${product.title}`}
-            />
-          ))}
-        </div>
-      </section>
+      <Products />
     </main>
   );
 }
