@@ -1,8 +1,28 @@
 import Product from "@/components/Product";
-import useProducts from "@/hooks/useProducts";
+import { listProducts } from "@/utils/listProducts";
+import { useEffect, useState } from "react";
+
+interface IProduct {
+  id: string;
+  title: string;
+  summary: string;
+  tags: string[];
+  imgURL: string;
+  price: number;
+}
 
 export default function Products() {
-  const { products } = useProducts();
+  const [products, setProducts] = useState<IProduct[]>([]);
+
+  useEffect(() => {
+    const handle = async () => {
+      const list = await listProducts();
+
+      setProducts(list);
+    };
+
+    handle();
+  }, []);
 
   return (
     <section className="flex-1 max-md:px-10 px-20 mt-20 mb-20">

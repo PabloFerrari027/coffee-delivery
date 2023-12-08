@@ -1,6 +1,6 @@
 import { ProductsContext } from "@/contexts/ProductsContext";
+import { findProductById } from "@/utils/findProductById";
 import { ReactNode, useMemo, useState } from "react";
-import DB from "../../fake-database.json";
 
 interface IProductInLocalStorage {
   id: string;
@@ -33,11 +33,11 @@ export default function ProductsProvider({ children }: IProductsProvider) {
     return products;
   }
 
-  function handleProducts(data: IProductInLocalStorage[]) {
+  async function handleProducts(data: IProductInLocalStorage[]) {
     const products: IProduct[] = [];
 
-    data.forEach((product) => {
-      const getProduct = DB.find((p) => p.id === product.id) || null;
+    const handle = async (product: IProductInLocalStorage) => {
+      const getProduct = await findProductById({ id: product.id });
 
       if (getProduct) {
         const total = getProduct.price * product.amount;
@@ -48,16 +48,21 @@ export default function ProductsProvider({ children }: IProductsProvider) {
           total,
         });
       }
-    });
+    };
+
+    const promises = data.map(handle);
+
+    Promise.all(promises);
 
     return products;
   }
 
   useMemo(() => {
     const productsInLocalStorage = getProductsInLocalStorage();
-    const data = handleProducts(productsInLocalStorage);
 
-    setProducts([...data]);
+    handleProducts(productsInLocalStorage).then((products) => {
+      setProducts([...products]);
+    });
   }, [setProducts]);
 
   return (

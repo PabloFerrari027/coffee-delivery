@@ -1,15 +1,24 @@
-import { useState } from "react";
-
 import { PiMoney } from "react-icons/pi";
 import { BiDollar } from "react-icons/bi";
 import { FaPix } from "react-icons/fa6";
 import { FaRegCreditCard } from "react-icons/fa";
 
 import { Button } from "@/components/ui/button";
+import { MdErrorOutline } from "react-icons/md";
 
-export default function Payment() {
-  const [payment, setPayment] = useState<"pix" | "card" | "money" | null>(null);
+interface IPayment {
+  paymentMethod: "pix" | "card" | "money" | null;
+  paymentError: boolean;
+  setPaymentMethod: React.Dispatch<
+    React.SetStateAction<"pix" | "card" | "money" | null>
+  >;
+}
 
+export default function Payment({
+  paymentMethod,
+  setPaymentMethod,
+  paymentError,
+}: IPayment) {
   return (
     <div className="flex-1 py-10 px-10 mt-5 bg-zinc-50 max-sm:rounded-none rounded-lg">
       <h2 className="flex gap-3">
@@ -22,13 +31,19 @@ export default function Payment() {
         O pagamento é feito na entrega. Escolha a forma que deseja pagar
       </p>
 
+      {paymentError && (
+        <p className="ml-9 mt-5 text-sm text-red-500 leading-4 font-light flex items-center gap-1">
+          <MdErrorOutline /> Selecione um método de pagamento!
+        </p>
+      )}
+
       <div className="flex-1 max-sm:grid flex gap-2 mt-5">
         <Button
           type="button"
-          onClick={() => setPayment("card")}
+          onClick={() => setPaymentMethod("card")}
           className={`flex-1 flex gap-2 py-6 bg-zinc-200 shadow-none hover:bg-zinc-200 hover:opacity-80 
         ${
-          payment === "card" &&
+          paymentMethod === "card" &&
           "border border-purple-800 bg-purple-100 hover:bg-purple-100"
         }
         `}
@@ -42,10 +57,10 @@ export default function Payment() {
 
         <Button
           type="button"
-          onClick={() => setPayment("pix")}
+          onClick={() => setPaymentMethod("pix")}
           className={`flex-1 flex gap-2 py-6 bg-zinc-200 shadow-none hover:bg-zinc-200 hover:opacity-80 
         ${
-          payment === "pix" &&
+          paymentMethod === "pix" &&
           "border border-purple-800 bg-purple-100 hover:bg-purple-100"
         }
         `}
@@ -59,10 +74,10 @@ export default function Payment() {
 
         <Button
           type="button"
-          onClick={() => setPayment("money")}
+          onClick={() => setPaymentMethod("money")}
           className={`flex-1 flex gap-2 py-6 bg-zinc-200 shadow-none hover:bg-zinc-200 hover:opacity-80 
         ${
-          payment === "money" &&
+          paymentMethod === "money" &&
           "border border-purple-800 bg-purple-100 hover:bg-purple-100"
         }
         `}

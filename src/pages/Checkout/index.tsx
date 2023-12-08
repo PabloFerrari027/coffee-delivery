@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import useProducts from "@/hooks/useProducts";
 
 import { Button } from "@/components/ui/button";
@@ -7,11 +7,20 @@ import Payment from "./components/Payment";
 import SelectedProducts from "./components/SelectedProducts";
 import Resume from "./components/Resume";
 import Title from "./components/Title";
+import { FaCircleNotch } from "react-icons/fa";
 
 export default function Checkout() {
   const buttonRef = useRef<HTMLButtonElement>(null);
 
+  const [paymentMethod, setPaymentMethod] = useState<
+    "pix" | "card" | "money" | null
+  >(null);
+
   const { products } = useProducts();
+
+  const [isLoading, setLoading] = useState(false);
+
+  const [paymentError, setPaymentError] = useState(false);
 
   if (products.length > 0) {
     return (
@@ -19,9 +28,18 @@ export default function Checkout() {
         <section className="flex-1">
           <Title title="Complete seu pedido" />
 
-          <UserInfos ref={buttonRef} />
+          <UserInfos
+            ref={buttonRef}
+            paymentMethod={paymentMethod}
+            setLoading={setLoading}
+            setPaymentError={setPaymentError}
+          />
 
-          <Payment />
+          <Payment
+            paymentMethod={paymentMethod}
+            setPaymentMethod={setPaymentMethod}
+            paymentError={paymentError}
+          />
         </section>
 
         <section className="flex-1 lg:max-w-md">
@@ -36,7 +54,11 @@ export default function Checkout() {
               onClick={() => buttonRef.current?.click()}
               className="uppercase bg-brown-300 hover:bg-brown-300 hover:opacity-80 w-full mt-10"
             >
-              Confirmar pedido
+              {isLoading ? (
+                <FaCircleNotch className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                "Confirmar pedido"
+              )}
             </Button>
           </div>
         </section>

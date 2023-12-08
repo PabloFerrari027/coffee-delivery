@@ -1,8 +1,7 @@
-import { FaShoppingCart } from "react-icons/fa";
-import { Button } from "../ui/button";
 import { twMerge } from "tailwind-merge";
 import { HTMLProps } from "react";
 import ToggleProduct from "../ToggleProduct";
+import ButtonShop from "../ButtonShop";
 
 interface IProductParams extends HTMLProps<HTMLDivElement> {
   id: string;
@@ -69,11 +68,7 @@ export default function Product({
         <div className="flex-1 flex gap-2">
           <ToggleProduct id={id} className="max-w-[6em]" />
 
-          <a href="/checkout">
-            <Button className="bg-purple-900 hover:bg-purple-900 hover:opacity-90 shadow-none text-white text-base">
-              <FaShoppingCart />
-            </Button>
-          </a>
+          <ButtonShop id={id} />
         </div>
       </div>
     </div>

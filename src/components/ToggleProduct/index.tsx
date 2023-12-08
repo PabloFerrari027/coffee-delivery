@@ -1,7 +1,7 @@
 import useProducts from "@/hooks/useProducts";
+import { findProductById } from "@/utils/findProductById";
 import { HTMLAttributes, useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import DB from "../../../fake-database.json";
 
 interface IToggleProductParams extends HTMLAttributes<HTMLDivElement> {
   id: string;
@@ -15,9 +15,9 @@ export default function ToggleProduct({
   const { products, setProducts } = useProducts();
   const [amount, setAmount] = useState(1);
 
-  const handleAddProduct = () => {
+  const handleAddProduct = async () => {
     const productAlreadyExists = products.find((p) => p.id === id) || null;
-    const getProduct = DB.find((p) => p.id === id);
+    const getProduct = await findProductById({ id });
 
     if (!getProduct) return;
 
@@ -55,9 +55,9 @@ export default function ToggleProduct({
     return product;
   };
 
-  const handleRemoveProduct = () => {
+  const handleRemoveProduct = async () => {
     const productAlreadyExists = products.find((p) => p.id === id) || null;
-    const getProduct = DB.find((p) => p.id === id);
+    const getProduct = await findProductById({ id });
 
     if (!getProduct) return;
 
